@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1090</width>
+    <height>661</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QSlider" name="verticalSlider">
+      <property name="sliderPosition">
+       <number>99</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="GLWidget" name="widget" native="true"/>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>GLWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">glwidget.h</header>
+   <container>1</container>
+   <slots>
+    <slot>subdivide()</slot>
+    <slot>attract()</slot>
+    <slot>save()</slot>
+    <slot>stop()</slot>
+    <slot>reset()</slot>
+    <slot>brainSliderChanged(int)</slot>
+    <slot>stuffSliderChanged(int)</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>verticalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>stuffSliderChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>24</x>
+     <y>198</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>190</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
