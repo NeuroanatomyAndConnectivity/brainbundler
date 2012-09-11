@@ -26,7 +26,6 @@ HEADERS  += mainwindow.h \
     edge.h \
     primitive.h \
     segment.h \
-    artificialconnections.h \
-    csvconnections.h
+    artificialconnections.h
 
 FORMS    += mainwindow.ui
