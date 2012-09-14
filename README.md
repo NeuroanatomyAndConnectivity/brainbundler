@@ -1,16 +1,24 @@
 brainbundler
 ============
 
-The brainbundler repository contains the sources for two programs, both to be compiled using Qt (see http://qt.nokia.com/products/developer-tools/ for QT creator, or do the usual qmake / make thing...).
+The brainbundler repository contains the sources for two programs, which are both compiled using Qt (see http://qt.nokia.com/products/developer-tools/ for QT creator, or compile using qmake / make ...).
 
 bundler
 -------
 
-...contains the mean-shift-bundling command-line tool. It takes a binary graph as input, and outputs a .fib (binary vtk-file used in fiber tracking software). The input can either be a pair of ascii files with coordinates / connections; or a .fib-file, which only contains straight edges with no intermediate points. Usage as follows:
+Bundler is a mean-shift-bundling command-line tool. It takes a binary 3D graph as the input, and outputs a .fib (binary vtk-file used in fiber tracking software). The input can either be two ascii files (one with coordinates, the other describing connections); or a .fib-file, which only contains straight edges without intermediate points. 
 
+### Usage:
+
+<pre><code>
 bundler (-nodes "nodesfile" -cons "connectionsfile" / -fib ".fib-file") [-c_thr "compatibility threshold"] [-start_i "iterations in 1st cycle"] [-numcycles "number of cycles"]
+</code></pre>
+	
+### Input files
 
-Ascii File-Formats:
+Both ascii files and .fib files can be used for loading data into Bundler.  
+
+#### Ascii File-Formats:
 
 The file formats for the ascii files are as follows:
 
@@ -33,17 +41,21 @@ The list of connections contains pairs of indices in the coordinate file. Note t
 etc...
 </pre>
 
-Parameters:
+#### Converting ascii to .fib
 
-c_thr: The compatibility threshold (default 0.8). This value determines how compatible two edges have to be in order to move towards a common center of gravity. c_thr is responsible for how many distinct bundles emerge from the bundling: Too low values make everything bundle together, while too high values leave too many edges unbundled.
+To convert a pair of ascii-files to a single .fib-file, use the following command:
 
-start_i: Number of iterations in the first cycle; every following cycle has one iteration less. This parameter, like numcycles, influences the shape of the bundles.
+    bundler -nodes "nodefile" -cons "connectionsfile" -numcycles 0
 
-numcycles: Number of cycles. This parameter determines the shape of the bundles, as well as the number of subdivision points.
 
-Also: To convert a pair of ascii-files to a .fib-file, use the following:
+### Parameters:
 
-bundler -nodes "nodefile" -cons "connectionsfile" -numcycles 0
+-c_thr: The compatibility threshold (default 0.8). This value determines how compatible two edges should be in order to move towards a common center of gravity. c_thr is responsible for how many distinct bundles emerge from the bundling: Too low values make everything bundle together, while too high values leave too many edges unbundled.
+
+-start_i: Number of iterations in the first cycle; every following cycle has one iteration less. This parameter, like numcycles, influences the shape of the bundles.
+
+-numcycles: Number of cycles. This parameter determines the shape of the bundles, as well as the number of subdivision points.
+
 
 fibviewer
 ---------
@@ -52,12 +64,13 @@ fibviewer
 
 fibviewer ".fib-file"
 
-This would also be the place to start if you want to bundle your own data in a different format: Subclassing "Connections" should make it easy to look at data, and then export it to .fib.
+This would also be the place to start if you want to bundle your own data in a different format: Subclassing "Connections" should make it easy to look at data, and then export it to a .fib format file.
 
-For an example (or if you simply want some data to play around with) have a look at "artificialconnections". That data gets loaded if the first argument is:
+For an example, see "artificialconnections". It can be loaded with the following command:
 
-fibviewer artificial
+    fibviewer artificial
 
-fibviewer artificial -writefib
+In order to write a .fib-File, which can then be bundled with Bundler:
 
-then writes a .fib-File, which can be bundled with the bundler...
+    fibviewer artificial -writefib
+
