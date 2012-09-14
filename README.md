@@ -13,7 +13,7 @@ Bundler is a mean-shift-bundling command-line tool. It takes a binary 3D graph a
 <pre><code>
 bundler (-nodes "nodesfile" -cons "connectionsfile" / -fib ".fib-file") [-c_thr "compatibility threshold"] [-start_i "iterations in 1st cycle"] [-numcycles "number of cycles"]
 </code></pre>
-	
+
 ### Input files
 
 Both ascii files and .fib files can be used for loading data into Bundler.  
