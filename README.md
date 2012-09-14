@@ -1,18 +1,14 @@
-brainbundler
-============
+# brainbundler
 
 The brainbundler repository contains the sources for two programs, which are both compiled using Qt (see http://qt.nokia.com/products/developer-tools/ for QT creator, or compile using qmake / make ...).
 
-bundler
--------
+## bundler
 
 Bundler is a mean-shift-bundling command-line tool. It takes a binary 3D graph as the input, and outputs a .fib (binary vtk-file used in fiber tracking software). The input can either be two ascii files (one with coordinates, the other describing connections); or a .fib-file, which only contains straight edges without intermediate points. 
 
 ### Usage:
 
-<pre><code>
-bundler (-nodes "nodesfile" -cons "connectionsfile" / -fib ".fib-file") [-c_thr "compatibility threshold"] [-start_i "iterations in 1st cycle"] [-numcycles "number of cycles"]
-</code></pre>
+    bundler (-nodes "nodesfile" -cons "connectionsfile" / -fib ".fib-file") [-c_thr "compatibility threshold"] [-start_i "iterations in 1st cycle"] [-numcycles "number of cycles"]
 
 ### Input files
 
@@ -47,7 +43,6 @@ To convert a pair of ascii-files to a single .fib-file, use the following comman
 
     bundler -nodes "nodefile" -cons "connectionsfile" -numcycles 0
 
-
 ### Parameters:
 
 -c_thr: The compatibility threshold (default 0.8). This value determines how compatible two edges should be in order to move towards a common center of gravity. c_thr is responsible for how many distinct bundles emerge from the bundling: Too low values make everything bundle together, while too high values leave too many edges unbundled.
@@ -57,12 +52,11 @@ To convert a pair of ascii-files to a single .fib-file, use the following comman
 -numcycles: Number of cycles. This parameter determines the shape of the bundles, as well as the number of subdivision points.
 
 
-fibviewer
----------
+## fibviewer
 
 ...is a simple viewer for .fib-files. Basic usage is as follows:
 
-fibviewer ".fib-file"
+    fibviewer ".fib-file"
 
 This would also be the place to start if you want to bundle your own data in a different format: Subclassing "Connections" should make it easy to look at data, and then export it to a .fib format file.
 
