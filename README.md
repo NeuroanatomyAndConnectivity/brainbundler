@@ -1,6 +1,6 @@
 # brainbundler
 
-The brainbundler repository contains the sources for two programs, which are both compiled using Qt (see http://qt.nokia.com/products/developer-tools/ for QT creator, or compile using qmake / make ...).
+The brainbundler repository contains the sources for two programs, which are both compiled using Qt (see http://qt.nokia.com/products/developer-tools/ for QT creator, or compile using qmake / make).
 
 ## bundler
 
@@ -45,11 +45,11 @@ To convert a pair of ascii-files to a single .fib-file, use the following comman
 
 ### Parameters:
 
--c_thr: The compatibility threshold (default 0.8). This value determines how compatible two edges should be in order to move towards a common center of gravity. c_thr is responsible for how many distinct bundles emerge from the bundling: Too low values make everything bundle together, while too high values leave too many edges unbundled.
+**-c_thr**: The compatibility threshold (default 0.8). This value determines how compatible two edges should be in order to move towards a common center of gravity. c_thr is responsible for how many distinct bundles emerge from the bundling: Too low values make everything bundle together, while too high values leave too many edges unbundled.
 
--start_i: Number of iterations in the first cycle; every following cycle has one iteration less. This parameter, like numcycles, influences the shape of the bundles.
+**-start_i**: Number of iterations in the first cycle; every following cycle has one iteration less. This parameter, like numcycles, influences the shape of the bundles.
 
--numcycles: Number of cycles. This parameter determines the shape of the bundles, as well as the number of subdivision points.
+**-numcycles**: Number of cycles. This parameter determines the shape of the bundles, as well as the number of subdivision points.
 
 
 ## fibviewer
