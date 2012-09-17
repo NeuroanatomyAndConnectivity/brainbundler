@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     w.setWindowTitle("Fibviewer");
     w.show();
 
-    if (qApp->arguments().indexOf(QRegExp("-writefib"))!=-1 || qApp->arguments().indexOf(QRegExp("-screenshot"))!=-1){
+    if (qApp->arguments().indexOf(QRegExp("-writefib"))!=-1 || qApp->arguments().indexOf(QRegExp("-writeobj"))!=-1 || qApp->arguments().indexOf(QRegExp("-screenshot"))!=-1){
         return 0;
     }
 

@@ -22,6 +22,7 @@ public:
     void paintGL();
     void sortCons();
     void writeVTK();
+    void writeOBJ(QString filename);
     void writeBinaryVTK(QString filename);
     void writeCSVs();
     QVector3D piv;

@@ -26,8 +26,8 @@ public:
     void writeSegments();
     QString name();
 
-    double c_thr;
-    int start_i, numcycles;
+    double c_thr, bell;
+    int start_i, numcycles, smooth;
     QString prefix;
 
 private:

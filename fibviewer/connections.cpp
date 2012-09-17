@@ -267,6 +267,40 @@ void Connections::writeCSVs(){
     ffile.close();
 }
 
+void Connections::writeOBJ(QString filename){
+    QFile file(filename);
+    file.open(QIODevice::WriteOnly);
+    QTextStream out(&file);
+
+    qDebug() << "writing vertices for " << edges.length() << " edges...";
+    for (int e = 0; e<edges.length(); e++){
+        Edge* ed = edges.at(e);
+        qDebug() << e;
+        for (int p=0; p<ed->points.size(); p++){
+            QVector3D po = ed->points.at(p);
+            out << "v " << (float)po.x() << " " <<(float)po.y() << " " << (float)po.z() << endl;
+        }
+    }
+
+    //1st point is point 1 in .obj...
+    int i = 1;
+    qDebug() << "writing " << edges.length() << " edges...";
+    for (int e = 0; e<edges.length(); e++){
+        Edge* ed = edges.at(e);
+        qDebug() << e;
+        out << "l";
+        for (int p=0; p<ed->points.size(); p++){
+            out << " " << i;
+            i++;
+        }
+        for (int p=0; p<ed->points.size()-2; p++){
+            out << " " << (i-2)-p;
+        }
+        out << endl;
+    }
+    file.close();
+}
+
 void Connections::selectForPoint(QVector3D* p){
     double minD = edges.at(0)->minDist(*p);
     int selI = 0;

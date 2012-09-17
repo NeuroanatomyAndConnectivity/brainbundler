@@ -51,6 +51,9 @@ To convert a pair of ascii-files to a single .fib-file, use the following comman
 
 **-numcycles**: Number of cycles. This parameter determines the shape of the bundles, as well as the number of subdivision points.
 
+**-bell**: Width of the Gaussian kernel used to calculate the weights for the mean shift (default 5).
+
+**-smooth**: Number of additional subdivision steps without shifting after the bundling (default 3). Determines how smooth the final connections appear.
 
 ## fibviewer
 

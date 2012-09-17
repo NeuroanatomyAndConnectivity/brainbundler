@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
     if (arg("c_thr")!="") cons->c_thr = arg("c_thr").toDouble();
     if (arg("start_i")!="") cons->start_i = arg("start_i").toInt();
     if (arg("numcycles")!="") cons->numcycles = arg("numcycles").toInt();
+    if (arg("bell")!="") cons->bell = arg("bell").toDouble();
+    if (arg("smooth")!="") cons->smooth = arg("smooth").toInt();
 
     qDebug() << cons->name();
 

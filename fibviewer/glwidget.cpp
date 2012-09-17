@@ -46,6 +46,7 @@ GLWidget::GLWidget(QWidget *parent)
     p2 = true;
 
     if (qApp->arguments().indexOf(QRegExp("-writefib"))!=-1) cons->writeBinaryVTK(filename+".fib");
+    if (qApp->arguments().indexOf(QRegExp("-writeobj"))!=-1) cons->writeOBJ(filename+".obj");
 
     if (qApp->arguments().indexOf(QRegExp("-screenshot"))!=-1) screenshot(filename+".png");
     if (qApp->arguments().indexOf(QRegExp("-csv"))!=-1) cons->writeCSVs();

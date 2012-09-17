@@ -122,6 +122,8 @@ void Connections::params() {
     c_thr = 0.8;
     start_i = 10;
     numcycles = 10;
+    bell = 5;
+    smooth = 3;
 }
 
 void Connections::subdivide(int newp) {
@@ -154,7 +156,6 @@ void Connections::attract(){
                     }
 
                     float de = (pe-p).length();
-                    double bell = 5;
                     double weight = qExp(-(de*de)/(2*bell*bell));
                     fsum += weight;
                     f += weight*pe;
@@ -191,10 +192,10 @@ void Connections::fullAttract() {
         spnow *= spfac;
     }
     //for further subdivision without attraction
-    /*for (int i=1; i<3; i++){
+    for (int i=1; i<smooth; i++){
         subdivide(qRound(spnow)+i);
         qDebug() << "number of subd. points: " << qRound(spnow)+i;
-    }*/
+    }
 }
 
 void Connections::calcComps(){
