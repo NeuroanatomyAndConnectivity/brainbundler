@@ -1,0 +1,26 @@
+<h1>Bundling example</h1>
+
+<ol>
+<li>Download and install <a href="http://qt.nokia.com/products/developer-tools">Qt-Creator</a>.<br></li>
+<li>Load the project files (bundler.pro and fibviewer.pro) in Qt-Creator, compile both projects in the build menu.<br></li>
+<li>Put the resulting executables (bundler and fibviewer) in your path<br></li>
+<li>In a new folder, create artificial example data:<br>
+<code>fibviewer artificial -writefib</code><br>
+As a result, the file "artificial.fib" is created. You can look at it with:<br>
+<code>fibviewer artificial.fib</code><br>
+<img src="artificial.fib.png" alt="artificial data" title="" /></li>
+<li>Bundle it with the default parameters:<br>
+<code>bundler -fib artificial.fib</code><br></li>
+<li>Look at it:<br>
+<code>fibviewer artificial.fib_c_thr0.8000_start_i0010_numcycles10.fib</code><br>
+<img src="artificial.fib_c_thr0.8000_start_i0010_numcycles10.fib.png" alt="default bundling" title="" /></li>
+<li>The middle bundle is split up in a weird way: One way around that is to increase the compatibility threshold to 0.9 from the default (0.8):<br>
+<code>bundler -fib artificial.fib -c_thr 0.9</code><br></li>
+<li>Looking at it again shows that now the bundles are nicely seperated:<br>
+<code>fibviewer artificial.fib_c_thr0.9000_start_i0010_numcycles10.fib</code><br>
+<img src="artificial.fib_c_thr0.9000_start_i0010_numcycles10.fib.png" alt="c_thr=0.9" title="" /></li>
+<li>In order to change the shape of the bundles to "less tight", we can decrease the number of cycles to 4 (default 10):<br>
+<code>bundler -fib artificial.fib -c_thr 0.9 -numcycles 4</code><br>
+<code>fibviewer artificial.fib_c_thr0.9000_start_i0010_numcycles04.fib</code><br>
+<img src="artificial.fib_c_thr0.9000_start_i0010_numcycles04.fib.png" alt="numcycles=4" title="" /></li>
+</ol>
