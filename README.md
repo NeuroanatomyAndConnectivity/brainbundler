@@ -71,3 +71,8 @@ In order to write a .fib-File, which can then be bundled with Bundler:
 
     fibviewer artificial -writefib
 
+The following can be used to export the bundled connections as .obj files, for example to import them in 3D rendering software like Blender:
+
+    fibviewer artificial.fib -writeobj
+
+
