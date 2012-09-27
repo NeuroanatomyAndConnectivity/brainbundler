@@ -71,8 +71,6 @@ private:
     double scale;
     float bg;
     bool p1,p2;
-    QVector3D* selected;
-    bool select(QMouseEvent *event);
 public slots:
     void save();
     void screenshot(QString name);

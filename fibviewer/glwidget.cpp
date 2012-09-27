@@ -60,11 +60,6 @@ GLWidget::~GLWidget()
 
 void GLWidget::initializeGL()
 {
-    selected = new QVector3D(0,0,0);
-
-    glEnable(GL_RESCALE_NORMAL);
-
-    //glEnable(GL_DEPTH_TEST);
     glCullFace(GL_FRONT);
     glDisable(GL_CULL_FACE);
     glShadeModel(GL_SMOOTH);
@@ -78,7 +73,6 @@ void GLWidget::initializeGL()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glEnable(GL_LIGHT0);
-    glEnable(GL_MULTISAMPLE);
     glEnable(GL_LINE_SMOOTH);
     static GLfloat global_ambient[] = { 0.5f, 0.5f, 0.5f, 1.0f };
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
@@ -129,71 +123,30 @@ void GLWidget::resizeGL(int width, int height)
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
     lastPos = event->pos();
-
-    select(event);
-}
-
-bool GLWidget::select(QMouseEvent *event){
-    if (event->modifiers() && Qt::ControlModifier){
-        //select Point...
-        double modelview[16], projection[16];
-        int viewport[4];
-        float z;
-        GLdouble objx, objy, objz;
-
-        //get the modelview matrix
-        glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
-        //get the projection matrix
-        glGetDoublev(GL_PROJECTION_MATRIX, projection);
-        //get the viewport
-        glGetIntegerv(GL_VIEWPORT, viewport);
-
-        //Read the window z co-ordinate
-        //(the z value on that point in unit cube)
-        glReadPixels(event->x(), viewport[3] - event->y(), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
-
-        //Unproject the window co-ordinates to
-        //find the world co-ordinates
-        gluUnProject(event->x(), viewport[3] - event->y(), z, modelview, projection, viewport, &objx, &objy, &objz);
-
-        qDebug() << objx << " , " << objy << " , " << objz << "\n";
-
-        selected->setX(objx);
-        selected->setY(objy);
-        selected->setZ(objz);
-        cons->selectForPoint(selected);
-        return true;
-    } else {
-        return false;
-    }
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *event)
-{
+{   
+    glLoadIdentity();
 
-    if (!select(event)){
+    int dx = event->x() - lastPos.x();
+    int dy = event->y() - lastPos.y();
 
-        glLoadIdentity();
-
-        int dx = event->x() - lastPos.x();
-        int dy = event->y() - lastPos.y();
-
-        if (event->buttons() & Qt::LeftButton) {
-            QMatrix4x4 mat(view[0],view[4],view[8],view[12],view[1],view[5],view[9],view[13],view[2],view[6],view[10],view[14],view[3],view[7],view[11],view[15]);
-            QVector3D orig(0, 0, 0);
-            QVector3D m = mat.map(orig);
-            glTranslatef(m.x(), m.y(), m.z());
-            glRotatef(qSqrt(dx*dx+dy*dy)/2.0, dy, dx, 0);
-            glTranslatef(-m.x(), -m.y(), -m.z());
-        } else if (event->buttons() & Qt::RightButton) {
-            glTranslatef(dx/(float)width()*ar/scale, -dy/(float)height()/scale, 0);
-        }
-        lastPos = event->pos();
-        glPushMatrix();
-        glMultMatrixf(view);
-        glGetFloatv(GL_MODELVIEW_MATRIX, view);
-        glPopMatrix();
+    if (event->buttons() & Qt::LeftButton) {
+        QMatrix4x4 mat(view[0],view[4],view[8],view[12],view[1],view[5],view[9],view[13],view[2],view[6],view[10],view[14],view[3],view[7],view[11],view[15]);
+        QVector3D orig(0, 0, 0);
+        QVector3D m = mat.map(orig);
+        glTranslatef(m.x(), m.y(), m.z());
+        glRotatef(qSqrt(dx*dx+dy*dy)/2.0, dy, dx, 0);
+        glTranslatef(-m.x(), -m.y(), -m.z());
+    } else if (event->buttons() & Qt::RightButton) {
+        glTranslatef(dx/(float)width()*ar/scale, -dy/(float)height()/scale, 0);
     }
+    lastPos = event->pos();
+    glPushMatrix();
+    glMultMatrixf(view);
+    glGetFloatv(GL_MODELVIEW_MATRIX, view);
+    glPopMatrix();
 
     updateGL();
 }

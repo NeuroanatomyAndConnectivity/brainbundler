@@ -11,12 +11,10 @@ Connections::Connections()
     min = QVector3D(-100,-100,-100);
     max = QVector3D(100,100,100);
     piv = (max-min)/2;
-    selected = NULL;
 }
 
 Connections::Connections(QString nname, QString ename)
 {
-    selected = NULL;
     QFile n(nname);
     qDebug() << nname;
     if (!n.open(QIODevice::ReadOnly)) qDebug("nodes unreadable");
@@ -67,7 +65,6 @@ Connections::Connections(QString nname, QString ename)
 }
 
 Connections::Connections(QString fib){
-    selected = NULL;
     QFile n(fib);
     if (!n.open(QIODevice::ReadOnly)) qDebug() << "vtk unreadable: " << fib;
     QTextStream ns(&n);
@@ -106,7 +103,7 @@ Connections::Connections(QString fib){
     for (int i = 0; i < ncons; i++) {
         qint32 numpoints;
         ins >> numpoints;
-        qint32 ps[numpoints];
+        qint32* ps = new qint32[numpoints];
         for (int pn = 0; pn < numpoints; pn++){
             ins >> ps[pn];
         }
@@ -189,7 +186,6 @@ void Connections::paintGL()
     }
     //paintPoints();
     glDisable(GL_DEPTH_TEST);
-    if (selected) selected->paintGL();
 }
 
 void Connections::sortCons(){
@@ -299,20 +295,4 @@ void Connections::writeOBJ(QString filename){
         out << endl;
     }
     file.close();
-}
-
-void Connections::selectForPoint(QVector3D* p){
-    double minD = edges.at(0)->minDist(*p);
-    int selI = 0;
-    for (int i=1; i<edges.length(); i++){
-        Edge* e = edges.at(i);
-        double dist = e->minDist(*p);
-        if (dist<minD){
-            minD = dist;
-            selected = e;
-            selI = i;
-        }
-    }
-    if (minD>100) selected=NULL;
-    qDebug() << "selectedEdge: " << selI;
 }
