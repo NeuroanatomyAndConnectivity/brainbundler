@@ -102,7 +102,7 @@ Connections::Connections(QString fib){
         qint32 numpoints;
         ins >> numpoints;
         //qDebug() << numpoints;
-        qint32 ps[numpoints];
+        qint32* ps = new qint32[numpoints];
         for (int pn = 0; pn < numpoints; pn++){
             ins >> ps[pn];
         }
@@ -205,7 +205,7 @@ void Connections::calcComps(){
     for (int i=0; i<edges.length(); i++){
         for (int j=0; j<edges.length(); j++){
             if (i==j) {
-                comps[i+edges.size()*j]=0;
+                comps[i+edges.size()*j]=1;
             } else {
                 Edge* ei = edges.at(i);
                 Edge* ej = edges.at(j);
